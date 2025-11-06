@@ -33,7 +33,7 @@ export const FinancialTips = () => {
     },3000)
   },[])
 
-  const {expert , tip} = showQuote;
+  const {expert, tip} = showQuote;
   return (
     <div className='d-flex flex-column justify-content-center'
     style={{

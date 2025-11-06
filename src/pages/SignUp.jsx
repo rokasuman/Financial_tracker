@@ -1,16 +1,16 @@
-import React from "react";
+
 import { Container, Row, Col } from "react-bootstrap";
 import {FinancialTips} from '../components/FinancialTips'
-import SingUpForm from "../components/SingUpForm";
+import SignUpForm from "../components/SignUpForm";
 
 const SignUp = () => {
   return (
     <Container className="p-5">
       <Row className="bg-dark  p-5 rounded text-white">
-        <Col>
+        <Col md={6}>
           <FinancialTips/>
         </Col>
-        <Col><SingUpForm/></Col>
+        <Col><SignUpForm/></Col>
       </Row>
     </Container>
   );
