@@ -1,14 +1,23 @@
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import { postNewUser } from "../../helper/axiosHelper";
 
-import React, { useState } from "react";
 import { Custominput } from "./Custominput";
 import { toast } from "react-toastify";
+import useForm from "../hooks/useForm";
 
+const initialState ={
+  name:"",
+  email:"",
+  password:"",
+  Confirmpassword:"",
+
+}
 
 const SignUpForm = () => {
+  const {form, setForm, handleOnChange} = useForm({initialState})
 
-  const [form, setForm] = useState({})
+
 
   const fields = [
     {
@@ -16,7 +25,8 @@ const SignUpForm = () => {
       placeholder :"suman",
       required : true,
       type:"text",
-      name: "name"
+      name: "name",
+      value : form.name
 
     },
     {
@@ -24,7 +34,8 @@ const SignUpForm = () => {
       placeholder :"suman@gmail.com",
       required : true,
       type:"email",
-      name: "email"
+      name: "email",
+      value:form.email
 
     },
     {
@@ -32,7 +43,8 @@ const SignUpForm = () => {
       placeholder :"****",
       required : true,
       type:"password",
-      name: "password"
+      name: "password",
+      value:form.password
 
     },
     {
@@ -40,27 +52,24 @@ const SignUpForm = () => {
       placeholder :"****",
       required : true,
       type:"password",
-      name: "Confirmpassword"
+      name: "Confirmpassword",
+      value:form.Confirmpassword
 
     }
   ];
 
-  const handleOnChange = e =>{
-    const {name, value} = e.target 
-    console.log(name,value)
-    setForm({
-      ...form,
-      [name] : value,
-    });
-  }
-  const handleOnSubmit = e =>{
+
+  const handleOnSubmit = async (e) =>{
     e.preventDefault();
     const {Confirmpassword, ...rest} =form
 
     if(Confirmpassword !== rest.password){
       return toast.error("Password do not match")
     }
-    console.log(form)
+      const {status, message} = await postNewUser(rest)
+      toast[status](message)
+
+      status === 'success' && setForm(initialState)
   }
 
   return (
