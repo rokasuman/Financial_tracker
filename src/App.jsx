@@ -6,6 +6,9 @@ import { DefaultLayout } from './components/layout/DefaultLayout.jsx';
 import Dashboard from './pages/Dashboard.jsx';
 import Transaction from './pages/Transaction.jsx';
 import { Auth } from './components/auth/Auth.jsx';
+import { useEffect } from 'react';
+import { autoLogin } from './utils/users.js';
+import { useUser } from './context/UserContext.jsx';
 
 
 
@@ -13,6 +16,22 @@ import { Auth } from './components/auth/Auth.jsx';
 
 
 function App() {
+  const{user,setUser} = useUser();
+
+  useEffect(()=>{
+     !user?._id && updateUser();
+  },[user?._id]);
+
+
+// bridge function to connect with user.jsx of utlis folder
+  const updateUser =async () =>{
+   const user = await autoLogin();
+    setUser(user);
+  }
+ 
+  
+
+
 
  
   return (

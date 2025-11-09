@@ -67,6 +67,7 @@ const SignInForm = () => {
    console.log(user,accessJWT)
    setUser(user)
    localStorage.setItem("accessJWT",accessJWT)
+  
   }
 
   return (
