@@ -1,9 +1,13 @@
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
-
+import {toast} from 'react-toastify'
 import { Custominput } from "./Custominput";
 import useForm from "../hooks/useForm";
+import { loginUser } from "../../helper/axiosHelper";
+import { useUser } from "../context/UserContext";
+import { useEffect } from "react";
+import { useNavigate } from "react-router";
 
 // initial state 
 const initialState = {
@@ -12,7 +16,16 @@ const initialState = {
 }
 
 const SignInForm = () => {
+  const {user, setUser} = useUser();
+  const navigate = useNavigate();
+
+
    const {form,handleOnChange } = useForm({initialState})
+
+
+   useEffect(() =>{
+    user?._id && navigate ('/dashboard')
+   },[user?._id, navigate])
   
 
   const fields = [
@@ -41,7 +54,19 @@ const SignInForm = () => {
     e.preventDefault();
 
 
-   console.log(form)
+   console.log(form);
+   
+   const pendingRep = loginUser(form)
+   toast.promise(pendingRep,{
+    pending:"Please wait ...",
+  
+
+   } )
+   const {status,message,user,accessJWT } = await pendingRep
+   toast[status](message)
+   console.log(user,accessJWT)
+   setUser(user)
+   localStorage.setItem("accessJWT",accessJWT)
   }
 
   return (

@@ -5,8 +5,12 @@ import { Container,Row,Col } from 'react-bootstrap'
 import { GoGraph } from "react-icons/go";
 import { BsGraphDown } from "react-icons/bs";
 import SignInForm from '../components/SignInForm';
+import { useUser } from '../context/UserContext';
 
 const Login = () => {
+
+  const data = useUser();
+  console.log(data)
   return (
      <Container className="p-5">
       <Row className="bg-dark  p-4 rounded text-white">
