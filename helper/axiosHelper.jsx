@@ -59,3 +59,19 @@ export const getUser = () => {
   };
   return apiProcessor(obj);
 };
+
+
+
+// transtion 
+export const postNewTransaction= (data) => {
+  const obj = {
+    method: "post",
+    url: rootApiEP + "/transactions",   
+    data,
+    headers:{
+    Authorization : getAccessJWT(),
+   },
+  };
+  return apiProcessor(obj);
+
+}

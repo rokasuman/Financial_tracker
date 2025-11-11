@@ -8,6 +8,7 @@ import { loginUser } from "../../helper/axiosHelper";
 import { useUser } from "../context/UserContext";
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
+import { useLocation } from "react-router-dom";
 
 // initial state 
 const initialState = {
@@ -16,16 +17,21 @@ const initialState = {
 }
 
 const SignInForm = () => {
+  //finding the location
+  const location =  useLocation();
+  console.log(location)
   const {user, setUser} = useUser();
   const navigate = useNavigate();
 
 
    const {form,handleOnChange } = useForm({initialState})
 
+   const goTo = location?.state?.from?.pathname || '/dashboard'
+
 
    useEffect(() =>{
-    user?._id && navigate ('/dashboard')
-   },[user?._id, navigate])
+    user?._id && navigate (goTo)
+   },[user?._id, navigate,goTo])
   
 
   const fields = [
