@@ -1,25 +1,41 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Table from 'react-bootstrap/Table';
 import { useUser } from '../context/userContext';
 import { FaPlusCircle } from "react-icons/fa";
 import { Form } from 'react-bootstrap';
 
 export const TransactionTabel = () => {
-  const {transactions} =useUser()
-  console.log(transactions)
-  const total = transactions.reduce((acc,trans)=>{
+  const[displayTran, setDisplayTran] = useState([])
+  const {transactions} =useUser();
+  useEffect(()=>{
+   setDisplayTran(transactions)
+  },[transactions])
+
+  const total = displayTran.reduce((acc,trans)=>{
     return trans.type ==="income" ? acc + trans.amount : acc - trans.amount
   },0);
+
+  //function to search the data 
+  const handleOnSeacrch = (e) =>{
+    const{value} = e.target;
+    const filterArg = transactions.filter(({title})=>{
+      return title.toLowerCase().includes(value.toLowerCase());
+
+      
+    });
+    setDisplayTran(filterArg);
+    
+  }
  
   return ( 
     <>
     <div className='d-flex justify-content-between pt-3 mb-4 gap-4'>
       <div>
-        {transactions.length} transaction(s) Found
+        {displayTran.length} transaction(s) Found
 
       </div>
       <div>
-        <Form.Control type='text'/>
+        <Form.Control type='text' onChange={handleOnSeacrch}/>
       </div>
       <div>
         
@@ -40,7 +56,7 @@ export const TransactionTabel = () => {
       </thead>
       <tbody>
           {
-        transactions.length > 0 && transactions.map((t,i)=><tr key={t._id}>
+        transactions.length > 0 && displayTran.map((t,i)=><tr key={t._id}>
           <td> {i + 1}</td>
           <td>{new Date (t.tDate).toLocaleDateString()}</td>
           <td>{t.title}</td>
