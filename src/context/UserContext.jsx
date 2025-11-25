@@ -6,6 +6,9 @@ export const UserContext = createContext();
 export const UserProvider = ({ children }) => {
 const [user, setUser] = useState({});
 const [transactions,setTransactions]= useState([]);
+ const [show, setShow] = useState(false);
+
+  const toggleModel = (value) => setShow(value);
 
 //upadatinf the tables 
 const getTransactions = async() =>{
@@ -23,7 +26,7 @@ const getTransactions = async() =>{
 
 }
   return (
-    <UserContext.Provider value={{ user,setUser,transactions,getTransactions}}>
+    <UserContext.Provider value={{ user,setUser,transactions,getTransactions,toggleModel,show}}>
       {children}
     </UserContext.Provider>
   );
