@@ -20,7 +20,7 @@ export const TransactionForm = () => {
 
   const handleOnSubmit =async (e) => {
     e.preventDefault();
-    console.log(form);
+
     const pending =  postNewTransaction(form);
     toast.promise(pending,{
       pending:"Please await..."

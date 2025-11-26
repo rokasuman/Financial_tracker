@@ -9,13 +9,19 @@ import { toast } from 'react-toastify';
 
 
 export const TransactionTabel = () => {
-  const[displayTran, setDisplayTran] = useState([])
-  const {transactions,toggleModel,getTransactions} =useUser();
-  const [idsToDelete,setIdsToDelete] =useState([])
+  const { 
+    transactions, 
+    toggleModel, 
+    getTransactions, 
+    displayTran, 
+    setDisplayTran 
+  } = useUser();
 
-  useEffect(()=>{
-   setDisplayTran(transactions)
-  },[transactions])
+  const [idsToDelete, setIdsToDelete] = useState([]);
+
+  useEffect(() => {
+    setDisplayTran(transactions);
+  }, [transactions]);
 
   const total = displayTran.reduce((acc,trans)=>{
     return trans.type ==="income" ? acc + trans.amount : acc - trans.amount
@@ -58,7 +64,7 @@ const handleOnDelete = async () => {
     await toast.promise(
       deleteTransaction(idsToDelete),
       {
-        pending: "Deleting...",
+        pending: "Please wait ...",
         success: "Deleted successfully",
         error: "Failed to delete"
       }
@@ -76,7 +82,7 @@ const handleOnDelete = async () => {
 
       </div>
       <div>
-        <Form.Control type='text' onChange={handleOnSeacrch}/>
+        <Form.Control type='text' placeholder='Search any Transaction' onChange={handleOnSeacrch}/>
       </div>
       <div>
         

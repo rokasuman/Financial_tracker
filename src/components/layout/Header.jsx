@@ -8,12 +8,14 @@ import { IoIosCreate } from "react-icons/io";
 import { MdSpaceDashboard } from "react-icons/md";
 import { FaMoneyBillTransfer } from "react-icons/fa6";
 import { useUser } from "../../context/UserContext.jsx";
+import { useState } from "react";
 
 export const Header = () => {
   const data = useUser();
   console.log(data);
 
   const { user, setUser } = useUser();
+  const [showMenu,setShowMenu] =useState(false)
 
   const handleOnLogOut = () => {
     alert("Sure you want to logout");
@@ -24,10 +26,14 @@ export const Header = () => {
   };
 
   return (
-    <Navbar variant="dark" className="bg-body-dark">
+    <Navbar variant="dark" className="bg-body-dark" expanded={showMenu}>
       <Container>
         <Navbar.Brand href="#home">FT</Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+         <div>
+          Welcome {user?.name}
+         </div>
+
+        <Navbar.Toggle aria-controls="basic-navbar-nav" onClick={()=>setShowMenu(false)}  />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">
             {user?._id ? (

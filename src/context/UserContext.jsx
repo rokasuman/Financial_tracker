@@ -7,6 +7,7 @@ export const UserProvider = ({ children }) => {
 const [user, setUser] = useState({});
 const [transactions,setTransactions]= useState([]);
  const [show, setShow] = useState(false);
+ const [displayTran,setDisplayTran]= useState([])
 
   const toggleModel = (value) => setShow(value);
 
@@ -26,7 +27,7 @@ const getTransactions = async() =>{
 
 }
   return (
-    <UserContext.Provider value={{ user,setUser,transactions,getTransactions,toggleModel,show}}>
+    <UserContext.Provider value={{ user,setUser,transactions,getTransactions,toggleModel,show,displayTran,setDisplayTran}}>
       {children}
     </UserContext.Provider>
   );

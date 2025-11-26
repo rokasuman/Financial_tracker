@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const rootApiEP = "http://localhost:8000/api/v1"
+const rootApiEP =  import.meta.env.VITE_ROOT_API + "/api/v1"
 
 //creating function for accessing the jwt token
 const getAccessJWT = () =>{

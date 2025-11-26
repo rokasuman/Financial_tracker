@@ -7,18 +7,14 @@ export const CustomModel=({children}) =>{
   
   return (
     <>
-      
-
       <Modal
         show={show}
         onHide={()=>toggleModel(false)}
         backdrop="static"
         keyboard={false}
       >
-        <Modal.Header closeButton>
-          <Modal.Title>Modal title</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
+        
+        <Modal.Body><Modal.Header closeButton></Modal.Header>
        {
         children
        }
